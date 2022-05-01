@@ -1,0 +1,615 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Proxysaur Documentation</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="configuration.html"><strong aria-hidden="true">1.2.</strong> Configuration</a></li></ol></li><li class="chapter-item expanded "><a href="http.html"><strong aria-hidden="true">2.</strong> HTTP Proxying</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ca.html"><strong aria-hidden="true">2.1.</strong> Certificate Authority Setup</a></li><li class="chapter-item expanded "><a href="http_configuration.html"><strong aria-hidden="true">2.2.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="http_observing.html"><strong aria-hidden="true">2.3.</strong> Observing HTTP Requests</a></li><li class="chapter-item expanded "><a href="http_redirection.html"><strong aria-hidden="true">2.4.</strong> Redirecting HTTP Requests</a></li><li class="chapter-item expanded "><a href="http_rewriting.html"><strong aria-hidden="true">2.5.</strong> Rewriting HTTP Requests</a></li><li class="chapter-item expanded "><a href="http_response_rewriting.html"><strong aria-hidden="true">2.6.</strong> Rewriting HTTP Responses</a></li><li class="chapter-item expanded "><a href="http_wasi.html"><strong aria-hidden="true">2.7.</strong> Customization with WebAssembly</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Proxysaur Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p><a href="https://github.com/pmalmgren/proxysaur">proxysaur</a> is a network application debugging proxy. Currently it supports TCP, HTTP and HTTP(s). There are plans to extend it to other protocols, such as Postgres and Redis, but these aren't implemented yet.</p>
+<p>You can use proxysaur to observe, record, replay, and rewrite network requests in real time. This is useful when you're doing web application development and need to see what requests are being performed. </p>
+<h2 id="design-goals"><a class="header" href="#design-goals">Design Goals</a></h2>
+<p>Proxysaur is designed to be extensible with <a href="https://webassembly.org/">WebAssembly</a>. All of the core logic is written in Rust, but request and response handling are completely delegated to compiled <a href="https://wasi.dev/">WASI modules</a>.</p>
+<p>Proxysaur is designed to be shareable. Once you have a proxy configuration which works, you can share the configuration and any compiled WASM modules with your teammates. You could use this, for example, to provide separate configurations for frontend and backend developers on your team. You could also use proxysaur as a mock network layer in a test suite.</p>
+<h2 id="design-anti-goals"><a class="header" href="#design-anti-goals">Design Anti-Goals</a></h2>
+<p>Proxysaur is not meant to be used in production, at least not in its current form.</p>
+<p>Proxysaur is configurable through a CLI interface and a configuration file, and is not meant to be a full-fledged UI application like Fiddler or Charles Proxy. That doesn't mean that one can't be built on top of Proxysaur.</p>
+<h2 id="releases"><a class="header" href="#releases">Releases</a></h2>
+<p>Proxysaur is currently in the pre-alpha phase of development. The API, CLI, and configuration interfaces could change at anytime.</p>
+<h2 id="getting-help"><a class="header" href="#getting-help">Getting Help</a></h2>
+<p>If you have questions or feedback, the best way to get help is to <a href="https://github.com/pmalmgren/proxysaur/issues">open an issue</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="before-getting-started"><a class="header" href="#before-getting-started">Before Getting Started</a></h1>
+<p>Before you get started, you'll need to install <code>openssl</code>. Currently, <code>proxysaur</code> is known to work with the latest <a href="https://www.openssl.org/news/openssl-1.1.1-notes.html">1.1.1 release</a>.</p>
+<p>The following sections provide more details on getting up and running:</p>
+<ul>
+<li><a href="/installation.html">installation</a> goes over how to install proxysaur on different OSes</li>
+<li><a href="/configuration.html">configuration</a> documents how to configure proxysaur</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<h2 id="releases-1"><a class="header" href="#releases-1">Releases</a></h2>
+<p>There are prebuilt releases for macOS and Linux available on the <a href="https://github.com/pmalmgren/proxysaur/releases">releases page</a>.</p>
+<p>Keep in mind you will need a working installation of <a href="https://www.openssl.org/source/">OpenSSL 1.1.1</a> which can be installed via <a href="https://formulae.brew.sh/formula/openssl@1.1">homebrew</a> or on Debian-based Linux distributions with <code>apt-get install</code>.</p>
+<h2 id="building-from-source"><a class="header" href="#building-from-source">Building from source</a></h2>
+<p>Alternatively, you can build proxysaur from source.</p>
+<p>You'll need to have <a href="https://www.rust-lang.org/tools/install">Rust installed</a>, and then you can run:</p>
+<pre><code class="language-bash">$ git clone https://github.com/pmalmgren/proxysaur.git
+$ cd proxysaur
+$ cargo build --release
+$ cp target/release/proxysaur /usr/local/bin # or somewhere in your PATH
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
+<p>Proxysaur uses a <a href="https://github.com/pmalmgren/proxysaur/blob/6159f78651b4c7b545a16e82bd1e35567b403339/config/src/tests/config.toml">toml configuration file</a> to store configuration settings.</p>
+<p><code>ca_path</code> stores a reference to the root certificate authority, which is needed if you want proxysaur to proxy and terminate TLS connections.</p>
+<p>Proxysaur can have one or more proxy configurations. These tell the server which ports to listen on, what application protocol to expect on those connections, and how to handle those connections.</p>
+<h2 id="initialization"><a class="header" href="#initialization">Initialization</a></h2>
+<p>To generate a configuration file, use the command:</p>
+<pre><code class="language-bash">$ proxysaur init [optional-path]
+</code></pre>
+<p>It will create a <code>proxysaur.toml</code> file in the current directory. Alternatively, you can pass in a path.</p>
+<p>You can then launch the proxy server with the command:</p>
+<pre><code class="language-bash">$ proxysaur
+</code></pre>
+<p>Or, if you specified a configuration file path:</p>
+<pre><code class="language-bash">$ proxysaur --config-path /path/to/config
+</code></pre>
+<h2 id="certificate-authority-configuration"><a class="header" href="#certificate-authority-configuration">Certificate Authority Configuration</a></h2>
+<p>Proxysaur comes with a root certificate authority generator. This is necessary if you want to configure it as a man-in-the-middle forwarding proxy for HTTPS.</p>
+<pre><code class="language-bash">$ proxysaur generate-ca
+</code></pre>
+<p>By default, this will place the certificate authority in the XDG data directory on Linux, and the application support directory on macOS.</p>
+<h2 id="proxy-configuration"><a class="header" href="#proxy-configuration">Proxy Configuration</a></h2>
+<p>To add a proxy configuration, use the subcommand <code>add-proxy</code>. This example will create a proxy which will listen on port 9000 and forward the requests to www.google.com:</p>
+<pre><code class="language-bash">$ proxysaur add-proxy
+Enter host: localhost
+Enter port: 9000
+Enter protocol [http|httpforward|tcp]: http
+Use tls [true/false]: false
+Upstream address: www.google.com
+Upstream port: 443
+Use custom wasi [true/false]? false
+</code></pre>
+<h3 id="enter-hostenter-port"><a class="header" href="#enter-hostenter-port">Enter host/Enter port</a></h3>
+<p>This prompt is the address and port that proxysaur will bind to when listening for incoming connections.</p>
+<h3 id="enter-protocols"><a class="header" href="#enter-protocols">Enter protocols</a></h3>
+<p>Currently proxysaur supports three different protocols:</p>
+<ul>
+<li><code>http</code>, a reverse proxy protocol which simply forwards along requests to an upstream server</li>
+<li><code>httpforward</code>, which allows proxysaur to be configured as a system-wide http proxy</li>
+<li><code>tcp</code>, a reverse tcp proxy which forwards along tcp requests to an upstream server</li>
+</ul>
+<h3 id="use-tls"><a class="header" href="#use-tls">Use tls</a></h3>
+<p>If <code>true</code>, the server will terminate connections using TLS and the configured certificate authority.</p>
+<h3 id="upstream-addressport"><a class="header" href="#upstream-addressport">Upstream address/port</a></h3>
+<p>Where to forward the requests.</p>
+<p>These configuration settings aren't applicable to the <code>httpforward</code> protocol.</p>
+<h3 id="use-custom-wasi"><a class="header" href="#use-custom-wasi">Use custom wasi</a></h3>
+<p>If set to <code>true</code>, you will be asked to enter the path to a custom WASI module that handles requests for the protocol you specified.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="http-proxying"><a class="header" href="#http-proxying">HTTP Proxying</a></h1>
+<p>Proxysaur supports two modes for proxying HTTP requests: HTTP forwarding mode, and reverse proxy mode.</p>
+<p>HTTP forwarding mode allows proxysaur to be used as a system-wide proxy.</p>
+<p>Reverse proxy mode allows proxysaur to terminate HTTP(S) traffic for a single host.</p>
+<h2 id="https-forward-proxy-configuration"><a class="header" href="#https-forward-proxy-configuration">HTTP(S) Forward Proxy Configuration</a></h2>
+<p>Proxysaur ships with a forward proxy WASI module which is highly configurable, and allows the following things:</p>
+<ul>
+<li>Request rewriting and redirecting</li>
+<li>Serving responses directly from the filesystem</li>
+<li>Response rewriting and recording</li>
+</ul>
+<p>Unless specified otherwise, this module is activated by default when the <code>httpforward</code> protocol is specified.</p>
+<p>The remaining documentation will cover how to use <code>httpforward</code> mode to observe and manipulate HTTP traffic.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="certificate-authority-setup"><a class="header" href="#certificate-authority-setup">Certificate Authority Setup</a></h1>
+<p>Before we're able to intercept HTTPS requests, we need a certificate authority which is trusted by the system making the requests. When HTTP requests come in, proxysaur uses the certificate authority to generate a certificate signing request (or CSR) and generate certificates for the domain. And because the certificates are signed by a trusted certificate authority, browsers and other HTTPS clients will see them as valid without displaying warnings.</p>
+<h2 id="security-concerns"><a class="header" href="#security-concerns">Security Concerns</a></h2>
+<p>Because the risk of an attacker getting ahold of the root certificate poses a grave security threat, proxysaur-generated root certificate authorities expire after 1 day.</p>
+<p>In the future, using something like <a href="https://man7.org/linux/man-pages/man7/keyrings.7.html">Linux keyrings</a> or <a href="https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave">Apple's Secure Enclave</a> may be implemented so that keys aren't stored in plaintext on disk.</p>
+<h2 id="generating-a-certificate-authority"><a class="header" href="#generating-a-certificate-authority">Generating a Certificate Authority</a></h2>
+<p>Proxysaur has a built in subcommand called <code>generate-ca</code>. It uses openssl to generate a key and certificate file. If you don't give a path to the subcommand, it will place them in the platform-specific data directory, for example in <code>$XDG_DATA_DIRS</code> on Linux.</p>
+<p>It will output the location of the CA to <code>stdout</code>, and if you run it multiple times it won't overwrite anything in the existing directory. If you pass in <code>-f</code> it will clear out all of the certificates.</p>
+<pre><code class="language-bash">$ proxysaur generate-ca
+/home/me/.local/share/proxysaur
+$ ls -lah /home/me/.local/share/proxysaur
+total 28K
+drwxrwxr-x  2 me me 4.0K Apr 28 11:29 .
+drwxrwxr-x 45 me me 4.0K Apr 27 08:53 ..
+-rw-rw-r--  1 me me  204 Apr 28 11:29 config
+-rwxrwxrwx  1 me me  326 Apr 28 11:29 generateca.sh
+-rw-rw-r--  1 me me 1.3K Apr 28 11:29 myca.crt
+-rw-------  1 me me 1.7K Apr 28 11:29 myca.key
+-rw-rw-r--  1 me me 1.3K Apr 28 11:29 myca.pem
+</code></pre>
+<h2 id="trusting-the-root-certificate-in-your-browser"><a class="header" href="#trusting-the-root-certificate-in-your-browser">Trusting the Root Certificate in your Browser</a></h2>
+<h3 id="firefox"><a class="header" href="#firefox">Firefox</a></h3>
+<ol>
+<li>Go to <code>about:preferences</code> in the URL bar</li>
+<li>Search for &quot;certificates&quot; and click on &quot;View Certificates&quot;</li>
+<li>Click on &quot;Authorities&quot; and then &quot;Import&quot;</li>
+<li>Select the root CA</li>
+</ol>
+<h3 id="chrome"><a class="header" href="#chrome">Chrome</a></h3>
+<ol>
+<li>Go to <code>chrome://settings/certificates</code> in the URL bar</li>
+<li>Click on &quot;Authorities&quot; and then &quot;Import&quot;</li>
+<li>Select the root CA</li>
+</ol>
+<h2 id="trusting-the-root-certificate-on-your-os"><a class="header" href="#trusting-the-root-certificate-on-your-os">Trusting the Root Certificate on your OS</a></h2>
+<h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
+<p>On Linux, you can manually trust the root certificate by copying it to your <code>/usr/local/share/ca-certificates/extra</code> directory:</p>
+<pre><code class="language-bash">$ CA_LOC=$(proxysaur generate-ca)
+$ sudo cp $CA_LOC/myca.crt /usr/local/share/ca-certificates/extra
+$ sudo update-ca-certificates
+</code></pre>
+<h3 id="macos"><a class="header" href="#macos">macOS</a></h3>
+<p>On macOS, you can either trust the root CA by double-clicking it and adding it to your login keychain. You'll have to select &quot;Always Trust&quot; after adding it to the keychain.</p>
+<p>You can also try with the following command:</p>
+<pre><code class="language-bash">$ CA_LOC=$(proxysaur generate-ca)
+$ security add-trusted-cert -d -r trustRoot -k $HOME/Library/Keychains/login.keychain $CA_LOC/myca.crt
+</code></pre>
+<h3 id="ios"><a class="header" href="#ios">iOS</a></h3>
+<p>You'll have to send the certificate to yourself via AirDrop, and then follow along with <a href="https://support.apple.com/en-us/HT204477">the Apple Support docs</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h1>
+<p>If you haven't already, run <code>proxysaur init</code> to create a new <code>proxysaur.toml</code> file in the current directory.</p>
+<p>Make sure that your <a href="/ca.html">certificate authority</a> is initialized and created.</p>
+<h2 id="add-a-proxy-with-http-forward-protocol"><a class="header" href="#add-a-proxy-with-http-forward-protocol">Add a proxy with HTTP forward protocol</a></h2>
+<p>To setup a forwarding HTTP proxy, use the proxysaur command <code>add-proxy</code>:</p>
+<pre><code class="language-bash">$ proxysaur add-proxy
+Enter host: localhost
+Enter port: 9000
+Enter protocol [http|httpforward|tcp]: httpforward
+Use tls [true/false]: false
+Use custom wasi [true/false]? false
+Enter proxy configuration path: proxy.yaml
+</code></pre>
+<p>This will generate the following configuration in <code>proxysaur.toml</code>:</p>
+<pre><code class="language-toml">[[proxy]]
+port = 9000
+protocol = 'httpforward'
+tls = false
+address = 'localhost'
+upstream_address = ''
+upstream_port = 9999
+</code></pre>
+<p>To check that this works, start proxysaur and then run the following command:</p>
+<pre><code class="language-bash">$ curl -x &quot;http://localhost:9000&quot; &quot;http://neverssl.com&quot;
+...
+</code></pre>
+<p>You should see requests and responses in the proxysaur logs:</p>
+<pre><code class="language-bash">$ proxysaur
+INFO protocols::http::proxy: Received request req=Request { ... }
+INFO protocols::http::proxy: New request. new_request=Request {...}
+INFO protocols::http::proxy: New response. new_response=Response { ...}
+INFO protocols::http::proxy: Finished tunneling. 
+INFO protocols::http::proxy: HTTP proxy result. 
+</code></pre>
+<h2 id="configure-the-forward-proxy"><a class="header" href="#configure-the-forward-proxy">Configure the forward proxy</a></h2>
+<p>To intercept and rewrite requests, we need to add a proxy configuration.</p>
+<p>Create a file called <code>proxy.yaml</code> and add the following:</p>
+<pre><code class="language-yaml">hosts:
+  google.com:
+    scheme: https
+    response_rewrites:
+      - when:
+          - path:
+              exact: /
+        rewrite:
+          replace_with: |
+            &lt;!DOCTYPE html&gt;
+            &lt;html&gt;
+              &lt;body&gt;
+                &lt;h1&gt;Proxysaur has eaten your website.&lt;/h1&gt;
+              &lt;/body&gt;
+            &lt;/html&gt;
+</code></pre>
+<p>Now start up proxysaur, and in a separate terminal run:</p>
+<pre><code class="language-bash">$ curl -x &quot;http://localhost:9000&quot; &quot;https://google.com/&quot;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Proxysaur has eaten your website.&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;% 
+</code></pre>
+<h2 id="configuration-format"><a class="header" href="#configuration-format">Configuration format</a></h2>
+<p>The configuration file has a top-level array of hosts, each of which has its own configuration block with the following properties:</p>
+<ul>
+<li><code>scheme</code> - can either be <code>http</code> or <code>https</code></li>
+<li><code>response_rewrites</code> - an array of rewrites which can change the HTTP response, covered in <a href="./http_response_rewriting.html">HTTP response rewriting</a></li>
+<li><code>request_rewrites</code> - an array of rewrites which can change the HTTP request, covered in <a href="./http_rewriting.html">HTTP request rewriting</a></li>
+<li><code>redirect</code> - a rule which can redirect requests to different hosts, covered in <a href="./http_redirection.html">HTTP request redirection</a></li>
+</ul>
+<p>Each rewrite or redirect has a <code>when</code> clause, which can match on either a header or the path. The match value for the path can be an exact match, a contains match which will match when the provided substring is found in the path, or a regular expression.</p>
+<h3 id="exact-match-example"><a class="header" href="#exact-match-example">Exact match example</a></h3>
+<pre><code class="language-yaml">hosts:
+  html.duckduckgo.com:
+    scheme: https
+    request_rewrites:
+      - when:
+          - path:
+              exact: /path
+        rewrite:
+          match:
+            header_name:
+              exact: origin
+            header_value:
+              contains: &quot;&quot;
+          new_header_name: $0
+          new_header_value: &quot;duckduckgo.com&quot; 
+</code></pre>
+<h3 id="contains-match-example"><a class="header" href="#contains-match-example">Contains match example</a></h3>
+<pre><code class="language-yaml">hosts:
+  html.duckduckgo.com:
+    scheme: https
+    request_rewrites:
+      - when:
+          - path:
+              contains: /api/v1
+        rewrite:
+          match:
+            header_name:
+              exact: origin
+            header_value:
+              contains: &quot;&quot;
+          new_header_name: $0
+          new_header_value: &quot;duckduckgo.com&quot; 
+</code></pre>
+<h3 id="regular-expression-match-example"><a class="header" href="#regular-expression-match-example">Regular expression match example</a></h3>
+<pre><code class="language-yaml">hosts:
+  html.duckduckgo.com:
+    scheme: https
+    request_rewrites:
+      - when:
+          - path:
+              regex: /api/v1/(.*)/books
+        rewrite:
+          match:
+            header_name:
+              exact: origin
+            header_value:
+              contains: &quot;&quot;
+          new_header_name: $0
+          new_header_value: &quot;duckduckgo.com&quot; 
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="observing-http-requests"><a class="header" href="#observing-http-requests">Observing HTTP Requests</a></h1>
+<p>For now, HTTP requests can be observed in the CLI output.</p>
+<p>In the future, an open telemetry collector might be added, with the option to view the output either in a tool like <a href="https://www.jaegertracing.io/docs/1.21/opentelemetry/">Jaeger</a> or in a separate web UI.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="redirecting-http-requests"><a class="header" href="#redirecting-http-requests">Redirecting HTTP Requests</a></h1>
+<p>HTTP requests can be redirected to another URL with the following configuration block:</p>
+<pre><code class="language-yaml">hosts:
+  google.com:
+    scheme: https
+    redirect:
+        to:
+          url:
+            url: https://duckduckgo.com/about
+            replace_path_and_query: false
+        when:
+          - path:
+              exact: /about
+</code></pre>
+<p>The parameter <code>replace_path_and_query</code> will overwrite the new redirected URL. For example:</p>
+<pre><code class="language-yaml">hosts:
+  google.com:
+    scheme: https
+    redirect:
+        to:
+          url:
+            url: https://proxysaur.us/
+            replace_path_and_query: true
+        when:
+          - path:
+              regex: /.*
+</code></pre>
+<p>In the above configuration block, every request directed to google.com will be redirected to proxysaur.us, with the path component being completely overwritten.</p>
+<h2 id="redirecting-file-requests"><a class="header" href="#redirecting-file-requests">Redirecting file requests</a></h2>
+<p><em>Note: This currently doesn't work, but is valid configuration</em></p>
+<p>You can also use proxysaur to serve static files with the file redirect block:</p>
+<pre><code class="language-yaml">hosts:
+  test2.com:
+    scheme: https
+    redirect:
+      to:
+        file:
+          path: /usr/local/www
+          root_index: true
+          replace_path: true
+          file_suffix: .html
+          content_type: text/html; charset=UTF-8
+</code></pre>
+<p>This will redirect requests from <code>https://test2.com/</code> to the local file system. Requests to <code>/</code> will be served from <code>/usr/local/www/index.html</code> etc. This can be useful when overwriting requests to specific paths with pre-recorded responses.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rewriting-http-requests"><a class="header" href="#rewriting-http-requests">Rewriting HTTP Requests</a></h1>
+<p>You can configure proxysaur to overwrite the HTTP headers and body of a request.</p>
+<h2 id="rewriting-http-headers"><a class="header" href="#rewriting-http-headers">Rewriting HTTP headers</a></h2>
+<p>Header rewrites have two parts: a match on the name or the value, and the new header name and/or value. Parts of the matched headers can be used in the old. For exact and contains matches, <code>$0</code> will expand to the entire matched value. So for example, this configuration will rewrite the <code>access-control-allow-origin</code> header to reuse the same name, but with the new value <code>*</code>.</p>
+<pre><code class="language-yaml">hosts:
+  test.com:
+    scheme: https
+    request_rewrites:
+      - when:
+          - path:
+              exact: /
+        rewrite:
+          match:
+            header_name:
+              exact: access-control-allow-origin
+            header_value:
+              # a blank value means anything will be matched
+              contains: &quot;&quot;
+          new_header_name: $0
+          new_header_value: &quot;*&quot;
+</code></pre>
+<p>Regular expressions can be used to do more complex rewrites with capture groups, which can be named or anonymous. In the below example we'll capture the bearer token and convert it to a basic token:</p>
+<pre><code class="language-yaml">hosts:
+  test.com:
+    scheme: https
+    request_rewrites:
+      - when:
+          - path:
+              exact: /
+        rewrite:
+          match:
+            header_name:
+              exact: authorization
+            header_value:
+              regex: Bearer (?P&lt;token&gt;[0-9A-Za-z]+)
+          new_header_name: $0
+          new_header_value: &quot;Basic $token&quot;
+</code></pre>
+<h2 id="rewriting-the-http-request-body"><a class="header" href="#rewriting-the-http-request-body">Rewriting the HTTP request body</a></h2>
+<p>There isn't any matching involved in an HTTP request body rewrite. The only thing you can do is overwrite the entire request body.</p>
+<pre><code class="language-yaml">hosts:
+  html.duckduckgo.com:
+    scheme: https
+    request_rewrites:
+      - when:
+          - path:
+              contains: /api
+        rewrite:
+          replace_with: |
+            { &quot;payload&quot;: &quot;a new body&quot; }
+</code></pre>
+<p>The proxy will calculate the size of the new body and set the <code>Content-Length</code> header to the appropriate size for you.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rewriting-http-responses"><a class="header" href="#rewriting-http-responses">Rewriting HTTP Responses</a></h1>
+<p>You can configure proxysaur to overwrite the HTTP headers, body, and status code of a response. The header and body rewrites are the same as for <a href="./http_rewriting.html">HTTP requests</a>.</p>
+<h2 id="status-code-rewrites"><a class="header" href="#status-code-rewrites">Status code rewrites</a></h2>
+<p>This example rewrites the status code from 200 to 500 for <code>https://test.com/</code>:</p>
+<pre><code class="language-yaml">hosts:
+  test.com:
+    scheme: https
+    response_rewrites:
+      - when:
+          - path:
+              exact: /
+        rewrite:
+          status:
+            exact: &quot;200&quot;
+          new_status: &quot;500&quot;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="customization-with-wasi"><a class="header" href="#customization-with-wasi">Customization with WASI</a></h1>
+<p>Compiled WASM modules, specifically compiled with <a href="https://wasi.dev/">WASI</a>, can be used to extend proxysaur. Currently, bindings exist only for Rust. The API exposed by these bindings is not stable and subject to change.</p>
+<p>A good reference point is the <code>http-forward-proxy</code>, which is the proxy that is documented for intercepting and rewriting requests via the YAML configuration file.</p>
+<h2 id="writing-a-rust-proxysaur-module"><a class="header" href="#writing-a-rust-proxysaur-module">Writing a Rust proxysaur module</a></h2>
+<h3 id="cargotoml"><a class="header" href="#cargotoml">Cargo.toml</a></h3>
+<p>Add the following dependency:</p>
+<pre><code class="language-toml">proxysaur-bindings = { git = &quot;https://github.com/pmalmgren/proxysaur&quot; }
+</code></pre>
+<h3 id="configuration-2"><a class="header" href="#configuration-2">Configuration</a></h3>
+<p>The configuration parameter in the <code>toml</code> file called <code>proxy_configuration_path</code> will be read in and the raw bytes are accessible with the <code>config</code> bindings:</p>
+<pre><pre class="playground"><code class="language-rust">use proxysaur_bindings::config;
+
+fn main() {
+    let config_data: Vec&lt;u8&gt; = proxysaur_config::get_config_data();
+    ...
+}
+</code></pre></pre>
+<p>If the data is invalid, you can use the <code>set_invalid_data</code> function which allows you to set a <code>String</code> error message:</p>
+<pre><pre class="playground"><code class="language-rust">use proxysaur_bindings::config;
+
+fn main() {
+    let config_data: Vec&lt;u8&gt; = proxysaur_config::get_config_data();
+    let config: Config = serde::from_bytes(&amp;config_data).map_err(|err| {
+        let msg = format!(&quot;Error serializing data: {}&quot;, err);
+        config::set_invalid_data(msg);
+        err
+    }).unwrap();
+}
+</code></pre></pre>
+<h3 id="http-pre-requests"><a class="header" href="#http-pre-requests">HTTP pre-requests</a></h3>
+<p>Before proxysaur proxies a request, it checks to see if it should intercept the request or just forward the data between the client and the server. It does this by running the module, and checking to see what the module set the proxy mode to. A value of <code>Intercept</code> means that it will proceed to call methods to manipulate the request and the response.</p>
+<p>For example, this WASI module will proxy requests only to <code>localhost:9234</code>:</p>
+<pre><pre class="playground"><code class="language-rust">use proxysaur_bindings::http::pre_request::{self, HttpPreRequest, ProxyMode};
+
+fn main() {
+    let request: HttpPreRequest = pre_request::http_request_get();
+
+    if request.authority == &quot;localhost:9234&quot; {
+        pre_request::http_set_proxy_mode(ProxyMode::Intercept);
+    }
+}
+</code></pre></pre>
+<h3 id="http-requests"><a class="header" href="#http-requests">HTTP Requests</a></h3>
+<p>After proxysaur received a request from the client, it runs a WASI module and checks the data set by the module. In the request module, you can set anything you want on the request. For example, this one changes the request body to some random data for <code>test.com</code>:</p>
+<pre><pre class="playground"><code class="language-rust">use proxysaur_bindings::http::request::{self, HttpRequest};
+
+fn main() {
+    let request: HttpRequest = request::http_request_get().expect(&quot;should get the request&quot;);
+
+    if request.host == &quot;test.com&quot; {
+        request::http_request_set_body(&quot;haha!&quot;.as_bytes()).expect(&quot;should set the body&quot;);
+    }
+}
+</code></pre></pre>
+<h3 id="http-responses"><a class="header" href="#http-responses">HTTP Responses</a></h3>
+<p>After proxysaur receives a response from the server, it runs a WASI module to check the response data set by the module. </p>
+<pre><pre class="playground"><code class="language-rust">use proxysaur_bindings::http::response::{self, HttpResponse};
+
+fn main() {
+    let response: HttpResponse = response::http_response_get().expect(&quot;should get the response&quot;);
+
+    if response.status == 200 {
+        response::http_response_set_status(500).expect(&quot;should set the status&quot;);
+        response::http_response_set_body(&quot;broken!&quot;.as_bytes()).expect(&quot;should set the body&quot;);
+    }
+}
+</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
