@@ -1,6 +1,6 @@
 # Introduction
 
-[proxysaur](https://github.com/proxysaur/proxysaur) is a network application debugging proxy. Currently it supports TCP, HTTP and HTTP(s). There are plans to extend it to other protocols, such as Postgres and Redis, but these aren't implemented yet.
+[proxysaur](https://github.com/pmalmgren/proxysaur) is a network application debugging proxy. Currently it supports TCP, HTTP and HTTP(s). There are plans to extend it to other protocols, such as Postgres and Redis, but these aren't implemented yet.
 
 You can use proxysaur to observe, record, replay, and rewrite network requests in real time. This is useful when you're doing web application development and need to see what requests are being performed. 
 
@@ -22,4 +22,4 @@ Proxysaur is currently in the pre-alpha phase of development. The API, CLI, and 
 
 ## Getting Help
 
-If you have questions or feedback, the best way to get help is to [open an issue](https://github.com/proxysaur/proxysaur/issues).
+If you have questions or feedback, the best way to get help is to [open an issue](https://github.com/pmalmgren/proxysaur/issues).
