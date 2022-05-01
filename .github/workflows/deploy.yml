@@ -26,6 +26,7 @@ jobs:
         git worktree add gh-pages gh-pages
         git config user.name "Deploy from CI"
         git config user.email ""
+        rm -rf gh-pages
         mkdir gh-pages
         cd gh-pages
         # Delete the ref to avoid keeping history.
