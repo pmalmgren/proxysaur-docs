@@ -6,6 +6,7 @@
     - [Installation](./installation.md)
     - [Configuration](./configuration.md)
 - [HTTP Proxying](./http.md)
+    - [Quick start](./quickstart.md)
     - [Certificate Authority Setup](./ca.md)
     - [Configuration](./http_configuration.md)
     - [Observing HTTP Requests](./http_observing.md)
