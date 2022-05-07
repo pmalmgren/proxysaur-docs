@@ -31,7 +31,8 @@ jobs:
         # Delete the ref to avoid keeping history.
         git checkout gh-pages --
         rm -rf *
-        mv ../book/* .
+        mv ../mdbook/* .
+        rm -rf ../mdbook
         git add .
         git commit -m "Deploy $GITHUB_SHA to gh-pages"
         git push --force
