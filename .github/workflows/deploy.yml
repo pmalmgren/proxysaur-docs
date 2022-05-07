@@ -23,7 +23,7 @@ jobs:
         mdbook build
     - name: Deploy GitHub Pages
       run: |
-        git worktree add gh-pages gh-pages
+        git checkout gh-pages
         git config user.name "Deploy from CI"
         git config user.email ""
         rm -rf gh-pages
